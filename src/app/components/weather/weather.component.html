@@ -1,0 +1,83 @@
+<div class="main">
+	<div id="widget-container">
+			<div class="input-group">
+				<input type="text" placeholder="Enter City" #cityName class="form-control"/>
+				 <input (click)="getCity(cityName.value)" value="Search" type="submit">
+			</div>
+
+	    <div class="widget-info" *ngIf='!weatherData.main && !weatherData.error'>
+	    	<div class="widget-city">
+          <h3>Find the weather by Searching Target City</h3>
+        </div>
+	    </div>
+
+	    <div class="widget-info" *ngIf='weatherData.error && !weatherData.main'>
+	    	<div class="widget-city">
+          <h1>{{ weatherData.error.message }}</h1>
+        </div>
+	    </div>
+
+		<div class="widget-info" *ngIf='weatherData.main'>
+			<div class="widget-sub-info">
+				<div class="widget-city">
+					<p>{{ weatherData.name }} Today</p>
+					<h4>Min: {{weatherData1.showMin().toFixed(0)}} °C</h4>
+          <h4>Max: {{weatherData1.showMax().toFixed(0)}} °C </h4>
+          <h4>Mean: {{weatherData1.showMean().toFixed(0)}} °C </h4>
+          <h4>Mean: {{weatherData1.showMean().toFixed(0)}} °C </h4>
+				</div>
+
+				<div>
+					<div class="detail-img">
+						<img src="http://openweathermap.org/img/wn/{{weatherData.weather[0].icon}}@2x.png">
+					</div>
+
+					<div class="detail-text">
+						<h1>{{weatherData.weather[0].main}}</h1>
+						<h3 >{{weatherData.weather[0].description}}</h3>
+					</div>
+				</div>
+			</div>
+
+			<div class="widget-cards">
+        <div>
+          <p>Feels Like</p>
+          <h1>{{weatherData.main.feels_like.toFixed(0)}} °C</h1>
+        </div>
+        <div>
+          <p>Humidity</p>
+          <h1>{{ weatherData.main.humidity }} %</h1>
+        </div>
+        <div>
+          <p>Wind Speed</p>
+          <h1>{{ weatherData.wind.speed }} km/h</h1>
+        </div>
+        <div>
+          <p>Pressure</p>
+          <h1>{{weatherData.main.pressure}} Pa</h1>
+        </div>
+		  </div>
+
+	  </div>
+
+    <div class="widget-forecast" *ngIf='fiveDaysForecastData'>
+
+        <div *ngFor="let f of fiveDaysForecastData">
+          <div class="forecast-wrapper" >
+              <p class="forecast-day">{{ f.day.substr(0,10) }}</p>
+              <img class="forecast-img" src="http://openweathermap.org/img/wn/{{ f.icon }}@2x.png">
+
+              <div class="forecast-degree">
+                <span id="max-degree">{{ f.max }}º </span>
+                <span id="min-degree">{{ f.min }}º </span>
+              </div>
+          </div>
+        </div>
+
+		</div>
+
+
+
+	  </div>
+	</div>
+
