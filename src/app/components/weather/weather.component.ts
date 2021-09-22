@@ -10,9 +10,9 @@ import { Tracker } from 'src/app/models/tracker.model';
 })
 export class WeatherComponent implements OnInit {
 
-  weatherData1: Tracker;
   weatherData: any = {};
   forecastData: any = {};
+  weatherData1: Tracker;
   fiveDaysForecastData: Forecast[] = [];
 
   constructor(private weatherService: WeatherService ) { }
@@ -25,12 +25,12 @@ export class WeatherComponent implements OnInit {
   getCity(city: string) {
     const promise1 = this.weatherService.getWeatherDataByCityName(city).toPromise();
 
+      // get today's temps
     promise1.then((data) => {
-
       this.weatherData = data;
       this.weatherData1 = new Tracker (
-        data.main.temp_max,
-        data.main.temp_min,
+        this.weatherData.main.temp_max,
+        this.weatherData.main.temp_min,
       );
 
     }, (error) => {
